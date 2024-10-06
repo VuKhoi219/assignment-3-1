@@ -11,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>User List</h1>
+            <h1>Article List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User List</li>
+              <li class="breadcrumb-item active">Article List</li>
             </ol>
           </div>
         </div>
@@ -30,8 +30,12 @@
             <!-- /.card -->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
-
+                <h3 class="card-title">DataTable Article</h3>
+                <div>
+                  <form action=""></form>
+                  <label for="search"> Search</label>
+                  <input type="text" name="search" id="search" placeholder="tìm kiếm ( Tiêu đề , tác giả , ngày thêm  )" value="<%= key %>">
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -51,46 +55,42 @@
                     </tr>
                   </thead>
                   <tbody>
-
-                      <tr>
-                        <td class="text-ellipsis  w-15">1</td>
-                        <td class="text-ellipsis w-15">Giới thiệu về Vue.js</td>
-                        <td class="text-ellipsis  w-15">gioi-thieu-ve-vuejs</td>
-                        <td class="text-ellipsis w-15"><a href="https://example.com/vuejs">https://example.com/vuejsccccccccccccccccccccccccccccccccc</a></td>
-                        <td class="text-ellipsis  w-15">Công nghệ</td>
-                      
-                        <td class="text-ellipsis  w-15"><img src="https://example.com/images/vuejs.jpg" alt="Vue.js"></td>
-                        <td class="text-ellipsis  w-15">Nguyễn Văn A</td>
-                        <td class="text-ellipsis  w-15">2023-01-01</td>
-                        <td class="text-ellipsis  w-15">2023-01-02</td>
-                        <td class="w-15 ">
-                          <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Dropdown link
-                            </a>
-                          
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                      <% for (var i = 0; i < articles.length; i++) { %>
+                        <tr>
+                          <td class="text-ellipsis  w-15"><%= articles[i].id %></td>
+                          <td class="text-ellipsis w-15"><%= articles[i].title %></td>
+                          <td class="text-ellipsis  w-15"><%= articles[i].slug %></td>
+                          <td class="text-ellipsis w-15"><a href="<%= articles[i].link %>"><%= articles[i].link %></a></td>
+                          <td class="text-ellipsis  w-15"><%= articles[i].category %></td>
+                        
+                          <td class="text-ellipsis  w-15"><img src="https://example.com/images/vuejs.jpg" alt="Vue.js"></td>
+                          <td class="text-ellipsis  w-15"><%= articles[i].author %></td>
+                          <td class="text-ellipsis  w-15"><%= articles[i].create_at %></td>
+                          <td class="text-ellipsis  w-15"><%= articles[i].update_at %></td>
+                          <td class="w-15 ">
+                            <div class="dropdown" >
+                              <a class="btn btn-secondary dropdown-toggle"
+                               style="  background-color:<%= articles[i].status == 1 ? '#7fff00' : '#f7658c' %>"
+                                href="#" role="button"
+                                 id="dropdownMenuLink"
+                                  data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                    aria-expanded="false">
+                                <% if (articles[i].status == 1) {%>
+                                    Đã duyệt
+                                <%}else{%>
+                                    Chưa duyệt
+                                <%}%>
+                                </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Duyệt</a>
+                                <a class="dropdown-item" href="#">Khoá</a>
+                                <a class="dropdown-item" href="#">Xoá</a>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Lập trình Node.js cơ bản</td>
-                        <td>lap-trinh-nodejs-co-ban</td>
-                        <td><a href="https://example.com/nodejs">https://example.com/nodejs</a></td>
-                        <td>Lập trình</td>
-                  
-                        <td><img src="https://example.com/images/nodejs.jpg" alt="Node.js"></td>
-                        <td>Trần Văn B</td>
-                        <td>2023-02-05</td>
-                        <td>2023-02-06</td>
-                        <td>Đã xuất bản</td>
-                      </tr>
-                      
+                          </td>
+                        </tr>
+                     <%}%>           
                   </tbody>
                   <tfoot>
 
@@ -111,48 +111,14 @@
   </div>
 
 <%- include('../layouts/partials/script')%>
-<script src="../../public/plugins/jquery/jquery.min.js"></script>
-
-
-
-<script src="../../public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../public/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-
-
-<script src="../../public/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../../public/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="../../public/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../../public/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../../public/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-
-<script src="../../public/plugins/jszip/jszip.min.js"></script>
-<script src="../../public/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="../../public/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="../../public/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="../../public/plugins/datatables-buttons/js/buttons.print.js"></script>
-<script src="../../public/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-s
-<!-- AdminLTE App -->
-<script src="../../public/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../public/dist/js/demo.js"></script>
 <script>
   $(function () {
     $("#example1")
     .DataTable({
-      responsive: true,
       lengthChange: true, // Để người dùng có thể thay đổi số lượng hàng hiển thị trên mỗi trang
-      searching: true, // Để bật tính năng tìm kiếm
-      autoWidth: false,
       paging: true, // Bật phân trang
-      buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      searching: false, // Tắt nút tìm kiếm
     })
-    .buttons()
-    .container()
-    .appendTo("#example1_wrapper .col-md-6:eq(0)");
   });
 
 </script>
